@@ -1,0 +1,36 @@
+.autorization {
+    text-align: center;
+}
+.block {
+    margin-top: 10%;
+    text-align: center;
+    padding-top: 1%;
+    background-color: gainsboro;
+}
+.c{
+    text-align: center;
+}
+* {
+    margin-bottom: 0%;
+}
+input {
+    font-size: 20px;
+}
+.msgsuccess {
+    border: 2px solid green;
+    background: rgb(107, 222, 107);
+    font-size: 26px;}
+.msgerror {
+    border: 2px solid rgb(122, 43, 7);
+    background: rgb(246, 63, 63);
+    font-size: 26px;
+}
+
+.subm {
+    margin-left: 1.8%;
+    margin-bottom: 1%;
+    font-size: 20px;
+}
+.column1 {
+    margin-top: 2%;
+}

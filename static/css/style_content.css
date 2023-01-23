@@ -1,0 +1,47 @@
+a{
+    font-size: 30px;
+}
+.title{
+    font-size: 32px;
+    font-family: monospace;
+    text-align: center;
+}
+
+.text{
+    font-size: 24px;
+    font-family: monospace;
+    padding-left: 5px;
+}
+.line {
+    display: inline;
+}
+.content {
+    margin-left: 13%;
+    background-color: rgb(203, 209, 215);
+    margin-right: 13%;
+    border: solid 3px grey;
+}
+.buttons {
+    padding-top: 20px;
+
+}
+body{
+    background-image: url("../images/фон\ для\ обложки\ поста2.jpg");
+}
+.del {
+    background-color: rgb(205, 37, 22);
+    font-size: 26px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.edit {
+    font-size: 26px;
+    background-color: rgb(163, 175, 189);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.return {
+    font-size: 26px;
+    text-decoration: none;
+    color: black;
+    border: 3px solid rgb(42, 40, 40);
+    background-color: aliceblue;
+}

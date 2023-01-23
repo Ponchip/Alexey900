@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Add Post</title>
+        <link href="../static/css/style_addmenu.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <a href="/" class="return">Главная страница</a>
+        {% for cat, mes in get_flashed_messages(True) %}
+        <div class="msg{{cat}}">{{mes}}</div>
+        {% endfor %}
+        <form action="/add_post" method="post">
+            <table class="c">
+                <tr>
+                    <td><b><p>Автор</p></b></td>
+                    <td><input name="authour" type="text" size='40'> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b><p>Заголовок</p> </b> 
+                    </td>
+                    <td>
+                        <textarea name="title" cols="40"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b><p>Текст</p></b>
+                    </td>
+                    <td>
+                        <textarea name="content" cols="40" rows="5"></textarea>
+                    </td>
+                </tr>
+        </table>
+        <input class="subm" type="submit" value="Загрузить">
+        </form>
+    </body>
+</html>

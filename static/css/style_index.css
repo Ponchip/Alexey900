@@ -1,0 +1,86 @@
+
+            /* div {
+                background-color: rgb(227, 225, 225);
+                font-size: 200%;
+                margin-left: 50px;
+            } */
+            .main {
+                width: 99.5%;
+                border: 4px double black; /* ��������� ������� */
+                background: #fc3; /* ���� ���� */
+                padding-top: 10px; /* ���� ������ ������ */
+                padding-bottom: 10px;
+                margin-bottom: 10px;
+                height: 10vh;
+            }
+            .malina{
+                border-right: 3px solid rgb(42, 40, 40);
+            }
+            .mi{
+                font-size: 65px;
+                text-decoration: none;
+                color: black;
+                border-left: 3px solid rgb(42, 40, 40);
+                margin-left: 20px;
+                padding-left: 60px;
+                padding-right: 60px;
+            }
+            a{
+                margin-left: 20px;
+                margin-top: 30px;
+            }
+            .post {
+                margin-top : 5px;
+                /* background-image: url("../static/images/���\ ���\ �������\ �����.jpg"); */
+                width : 50%;
+                background-color: rgb(232, 237, 241);
+                margin-left: 20px;
+                border: solid 4px rgb(100, 95, 95);
+                margin-bottom: 7px;
+                /* border-bottom: none; */
+            }
+            .content {
+                color :rgb(158, 148, 67);
+                /* padding-bottom: 30px; */
+                font-size: 24px;
+                padding-left: 18px;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+            }
+            a {
+                color: rgb(103, 149, 186);
+                text-decoration: none; 
+                font-size: 26px;
+            }
+            body{
+                background-image: url("../images/4907157.jpg");
+            }
+            /* .c {
+                border-bottom: solid 2px gray; */
+            }
+            .picture {
+                align-items: right;
+                margin-bottom : 9px;
+            }
+            .round {
+                border-radius: 100px; /* ������ ���������� */
+                border: 3px solid grey; /* ��������� ����� */
+                box-shadow: 0 0 3px #666; /* ��������� ���� */
+                display: inline;
+                margin-left : 10px;
+                margin-top : 8px;
+            }
+            .padd {
+                margin-bottom : 9px;
+            }
+            .main > a > img{
+                border-radius: 100px; /* Радиус скругления */
+                border: 3px solid rgb(223, 239, 46); /* Параметры рамки */
+                box-shadow: 0 0 3px #666; /* Параметры тени */
+                width: 100px;
+                margin-right: 3%;
+                margin-bottom: 1%;
+                float: right;;
+            }
+            .profile {
+                text-align: right;
+            }
