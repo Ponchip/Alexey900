@@ -1,31 +1,59 @@
 <!DOCTYPE html>
 <html>
+
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>{{title}}</title>
         <link href="../static/css/style_index.css" rel="stylesheet" type="text/css">
     </head>
+
     <body>
-        <div class="main">
-            <a class="mi" href="/">Главная</a>
-            <a class="mi" href="/add_post">Добавить статью</a>
-            <a href="/profile"><img class="i" src="../static/images/default.png"></a>
+        <div class="wrapper">
+            <header class="header_block">
+                <div class="wrp1">
+                    <form action="#" method="get">
+                        <input class="search" type="search" placeholder="Искать здесь...">
+                        <button class="button_search" type="submit"></button>
+                    </form>
+                </div>
+            </header>
+            <div class="middle">
+                    <div class="container">
+                        <div class="sidebar_block">    
+                            <div class="sidebar">
+                                <div class="sidebar_block_content">
+                                <h2>Меню</h2>
+                                <ul>
+                                    <li><a  href="/">Главная</a></li>
+                                    <li><a  href="/add_post">Добавить статью</a></li>
+                                    
+                                </ul>
+                                </div>
+                            </div>
+                                <div class="link_prof"><a href="/profile"><img class="i" src="./static/images/default.png" alt="упс картинки нет"></a></div>
+                        </div>
+                        <main class="content">
+                            {% for elem in menu%}
+                            <div class="post">
+                                <a class="a_post" href="{{elem['id']}}">
+                                {{elem["title"].replace("0b100111", "'").replace("0b100010", '"')}}</a>
+                                <!-- <td class="picture">
+                                    <img width="110px"  class="round" src="../static/images/default.png">
+                                </td> -->
+                                <p class="content1">
+                                {% autoescape false%}
+                                {{elem["content"][:50].replace("0b100111", "'").replace("0b100010", '"')}}...   
+                                {% endautoescape %}
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </main>
+                    </div>
+            </div>
+            <div class="block_footer">
+                <footer class="footer">&copy Все права защищены</footer>
+            </div>
         </div>
+</body>
 
-        {% for elem in menu%}
-        <div class="post" stye="background-color: #fc3; border: 2px solid grey;" >
-            <a  style="font-size: 26px; font-family: 'Segoe UI'" href="{{elem['id']}}">
-            {{elem["title"].replace("0b100111", "'").replace("0b100010", '"')}}</a>
-            <!-- <td class="picture">
-                <img width="110px"  class="round" src="../static/images/default.png">
-            </td> -->
-            <p class="content">
-            {% autoescape false%}
-            {{elem["content"][:50].replace("0b100111", "'").replace("0b100010", '"')}}...   
-            {% endautoescape %}
-            </p>
-        </div>
-        {% endfor %}
-
-    </body>
 </html>

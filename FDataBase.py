@@ -1,6 +1,7 @@
 from requests import delete
 import sqlite3
 
+
 class FDataBase:
     def __init__(self, db_):
         self.__db = db_
@@ -58,18 +59,15 @@ class FDataBase:
     def addContent(self, content):
         try:
             text = content["content"].replace("\n", "<br>")
-            text = text.replace("'", "0b100111")
-            text = text.replace('"', "0b100010")
+            text = text.replace("'", "0b100111").replace('"', "0b100010")
             title = content["title"].replace("\n", "<br>")
-            title = title.replace("'", "0b100111")
-            title = title.replace('"', "0b100010")
-            print("")
+            title = title.replace("'", "0b100111").replace('"', "0b100010")
             if not all([content['authour'], content["title"], text]):
                 return 400
             self.__cur.executescript(f"""
-            INSERT INTO posts VALUES(
-                        NULL, "{content['authour']}",
-                        "{title}", "{text}")""")
+                INSERT INTO posts VALUES(
+                NULL, "{content['authour']}",
+                "{title}", "{text}")""")
             return 200
         except BaseException as error:
             print("catched error", error)
