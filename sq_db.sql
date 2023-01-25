@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS posts (
 
 CREATE TABLE IF NOT EXISTS users (
     id integer PRIMARY KEY AUTOINCREMENT,
-    name_ text NOT NULL,
+    name_ text NOT NULL UNIQUE,
     pass TEXT NOT NULL
 );

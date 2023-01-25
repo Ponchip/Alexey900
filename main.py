@@ -2,10 +2,10 @@ import sqlite3
 import os
 from FDataBase import FDataBase
 from flask import redirect, render_template, Flask, request, flash, abort, \
-    url_for, make_response
+    url_for, make_response, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-
+from datetime import timedelta
 
 # CONFIGURATION
 DATABASE = "posts.db"
@@ -15,7 +15,22 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.update(dict(DATABASE=os.path.join(app.root_path, "posts.db")))
+app.permanent_session_lifetime = timedelta(days=1)
 db = False
+
+
+@app.route("/")
+def handler():
+    name = ''
+    if 'userID' in session:
+        if session['msg'] == '200':
+            flash("Вы успешно зарегистрировались", category="success")
+            session['msg'] = None
+        elif session['msg'] == 'input':
+            flash("Вы вошли в учетную запись", category="success")
+            session['msg'] = None
+        name = session['userID'][1]
+    return render_template("index.html", title="FlaskSite", menu=db.getMenu()[::-1], UserName=name)
 
 
 @app.before_request
@@ -38,11 +53,6 @@ def establish_connection():
 @app.errorhandler(404)
 def handle_bad_request(e):
     return '<h1>bad request!</h1>', 400
-
-
-@app.route("/")
-def handler():
-    return render_template("index.html", title="FlaskSite", menu=db.getMenu()[::-1])
 
 
 @app.route("/add_post", methods=["GET", "POST"])
@@ -72,6 +82,7 @@ def editor(post_id):
 
     return render_template("edit.html", content=menu[-1]["content"], post_num=post_id)
 
+
 @app.route("/<int:post_id>")
 def showPost(post_id):
     respone = db.getPost(post_id)
@@ -96,6 +107,7 @@ def profile():
 
 @app.route("/reqistration", methods=["GET", "POST"])
 def reg():
+    session.permanent = True
     if len(request.form['login']) < 6 and len(request.form['password']) < 6:
         flash("Неверно введены данные", category="error")
         return render_template("authorization.html")
@@ -104,14 +116,17 @@ def reg():
         psw = generate_password_hash(request.form["password"])
         code = db.newUser(psw, request.form["login"])
         if code == 200:
-            flash("Вы успешно зарегистрировались", category="success")
+            session['userID'] = db.getUserId(request.form['login'])
+            session['msg'] = '200'
+            return redirect(url_for('handler'))
         else:
             flash("Ошибка во время регистрации", category="error")
         return render_template("authorization.html")
     else:
         if check_password_hash(db.returnHsh(request.form["login"]), request.form["password"]):
-            flash("Вы вошли в учетную запись", category="success")
-            return render_template("authorization.html")
+            session['msg'] = 'input'
+            session['userID'] = db.getUserId(request.form['login'])
+            return redirect(url_for('handler'))
         else:
             flash("Неверный пароль", category="error")
             return render_template("authorization.html")

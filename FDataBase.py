@@ -23,6 +23,14 @@ class FDataBase:
         except sqlite3.Error as error:
             print('Ошибка ', error)
             return 400
+    
+    def getUserId(self, name):
+        try:
+            self.__cur.execute(f"SELECT * FROM users WHERE name_ like '{name}'")
+            id_ = self.__cur.fetchone()
+            return id_[0], id_[1]
+        except Exception as error:
+            print('Была обнаружена ошибка ', error)
 
     def returnHsh(self, login):
         self.__cur.execute(f"SELECT pass from users WHERE name_ like '{login}';")
