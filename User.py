@@ -16,5 +16,8 @@ class UserInfo:
     def get_id(self):
         return str(self.__user[1])
 
+    def get_ID(self):
+        return str(self.__user[0])
+
     def is_anonymous(self):
         return False

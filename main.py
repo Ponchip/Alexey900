@@ -69,7 +69,7 @@ def handle_bad_request(e):
 @login_required
 def AddPost():
     if request.method == "POST":
-        if db.addContent(request.form, current_user.get_id()) == 200:
+        if db.addContent(request.form, current_user.get_ID()) == 200:
             flash("Пост опубликован", category="success")
         else:
             flash("Ошибка", category="error")
@@ -77,27 +77,30 @@ def AddPost():
 
 
 @app.route("/edit_post<int:post_id>", methods=["POST", "GET"])
+@login_required
 def editor(post_id):
-    if request.method == 'GET':
+    if current_user.is_active and db.getPost(post_id)['authour_id'] == \
+     current_user.get_ID():
+        if request.method == 'GET':
+            menu = db.getContent(post_id)
+            return render_template("edit.html", content=menu[-1]["content"], post_num=post_id)
+        code = db.edit_post(request.form["new_content"], post_id)
+        if code == 200:
+            # данные внесены без ошибок код 200
+            flash("Правки внесены", category="success")
+        else:
+            # во время записи произошла ошибка
+            flash("Ошибка", category="error")
         menu = db.getContent(post_id)
+
         return render_template("edit.html", content=menu[-1]["content"], post_num=post_id)
-    code = db.edit_post(request.form["new_content"], post_id)
-    if code == 200:
-        # данные внесены без ошибок код 200
-        flash("Правки внесены", category="success")
-    else:
-        # во время записи произошла ошибка
-        flash("Ошибка", category="error")
-    menu = db.getContent(post_id)
-
-    return render_template("edit.html", content=menu[-1]["content"], post_num=post_id)
-
+    abort(404)
 
 @app.route("/<int:post_id>")
 def showPost(post_id):
     respone = db.getPost(post_id)
     if current_user.is_active and db.getPost(post_id)['authour_id'] == \
-            current_user.get_id():
+            current_user.get_ID():
         return render_template("post_skeleton_full.html", id=respone["id"],
                                content=respone["content"], title=respone["title"], 
                                authour=respone["authour"])
@@ -109,9 +112,13 @@ def showPost(post_id):
 
 
 @app.route("/delete_post<int:post_id>")
+@login_required
 def delete_post(post_id):
-    db.deletePost(post_id)
-    return render_template("deletePage.html", title="Удаление поста")
+    if current_user.is_active and db.getPost(post_id)['authour_id'] == \
+     current_user.get_ID():
+        db.deletePost(post_id)
+        return render_template("deletePage.html", title="Удаление поста")
+    abort(401)
 
 
 @app.route('/logout')
@@ -124,9 +131,11 @@ def logout():
 
 
 @app.route('/profile', methods=['GET', 'POST'])
+@login_required
 def profile():
     if current_user.is_active:
-        return render_template("Personal Area.html", name=current_user.name, menu=db.getMenu()[::-1])
+        return render_template("Personal Area.html", name=current_user.name, \
+            menu=db.getMenu(current_user.get_ID())[::-1])
     return render_template("authorization.html")
 
 

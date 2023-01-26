@@ -45,9 +45,12 @@ class FDataBase:
         self.__cur.execute(f"SELECT pass from users WHERE name_ like '{login}';")
         return self.__cur.fetchone()[0]
 
-    def getMenu(self):
+    def getMenu(self, authour_id=None):
         try:
-            self.__cur.execute(f"SELECT * FROM posts")
+            if authour_id:
+                self.__cur.execute(f"SELECT * FROM posts WHERE authour_id = {authour_id}")
+            else:
+                self.__cur.execute(f"SELECT * FROM posts")
             res = self.__cur.fetchall()
             if not all(res):
                 return ['', '', '']
