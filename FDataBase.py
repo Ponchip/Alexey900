@@ -6,12 +6,13 @@ class FDataBase:
     def __init__(self, db_):
         self.__db = db_
         self.__cur = db_.cursor()
+        self.__userID = None
 
     def checkin(self, login):
         self.__cur.execute(f"SELECT COUNT() as `n` FROM users WHERE name_ like '{login}'")
         res = self.__cur.fetchone()
         if res['n'] > 0:
-            return True # если пользователь уже зарегистрирован
+            return True  # если пользователь уже зарегистрирован
         return False
 
     def newUser(self, psw, login):
@@ -23,7 +24,15 @@ class FDataBase:
         except sqlite3.Error as error:
             print('Ошибка ', error)
             return 400
-    
+
+    def getAll(self, id):
+        try:
+            self.__cur.execute(f"SELECT * FROM users WHERE id like '{id}' LIMIT 1")
+            self.id_ = self.__cur.fetchone()
+            return self
+        except Exception as error:
+            print('Была обнаружена ошибка ', error)
+
     def getUserId(self, name):
         try:
             self.__cur.execute(f"SELECT * FROM users WHERE name_ like '{name}'")
@@ -102,4 +111,3 @@ class FDataBase:
     def text_from_bits(bits, encoding='utf-8', errors='surrogatepass'):
         n = int(bits, 2)
         return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode(encoding, errors) or '\0'
-

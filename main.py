@@ -6,6 +6,9 @@ from flask import redirect, render_template, Flask, request, flash, abort, \
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from datetime import timedelta
+from flask_login import LoginManager, login_user, login_required, \
+    current_user, logout_user
+from User import UserInfo
 
 # CONFIGURATION
 DATABASE = "posts.db"
@@ -15,22 +18,29 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.update(dict(DATABASE=os.path.join(app.root_path, "posts.db")))
+# Длительность сеанса
 app.permanent_session_lifetime = timedelta(days=1)
+login_manager = LoginManager(app)
+login_manager.login_view = 'reg'
+login_manager.login_message = 'Нужно войти или зарегистрироваться'
+login_manager.login_message_category = 'success'
 db = False
 
 
 @app.route("/")
 def handler():
-    name = ''
-    if 'userID' in session:
-        if session['msg'] == '200':
-            flash("Вы успешно зарегистрировались", category="success")
-            session['msg'] = None
-        elif session['msg'] == 'input':
-            flash("Вы вошли в учетную запись", category="success")
-            session['msg'] = None
+    '''Главная страница'''
+    name = 'не авторизован'  # Имя пользователя(User name)
+    if 'userID' in session:  # Если открыта сессия
         name = session['userID'][1]
+    elif not current_user.is_active:
+        logout_user()
     return render_template("index.html", title="FlaskSite", menu=db.getMenu()[::-1], UserName=name)
+
+
+@login_manager.user_loader
+def load_user(userID):
+    return UserInfo(userID, db)
 
 
 @app.before_request
@@ -56,6 +66,7 @@ def handle_bad_request(e):
 
 
 @app.route("/add_post", methods=["GET", "POST"])
+@login_required
 def AddPost():
     print(url_for('handler'))
     if request.method == "POST":
@@ -100,36 +111,53 @@ def delete_post(post_id):
     return render_template("deletePage.html", title="Удаление поста")
 
 
-@app.route('/profile')
+@app.route('/logout')
+@login_required
+def logout():
+    session.clear()
+    logout_user()
+    flash('Вы вышли из аккаунта', 'success')
+    return redirect(url_for('handler'))
+
+
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
+    if current_user.is_active:
+        return render_template("Personal Area.html", name=current_user.name)
     return render_template("authorization.html")
 
 
 @app.route("/reqistration", methods=["GET", "POST"])
 def reg():
     session.permanent = True
-    if len(request.form['login']) < 6 and len(request.form['password']) < 6:
-        flash("Неверно введены данные", category="error")
-        return render_template("authorization.html")
-
-    if not db.checkin(request.form['login']):
-        psw = generate_password_hash(request.form["password"])
-        code = db.newUser(psw, request.form["login"])
-        if code == 200:
-            session['userID'] = db.getUserId(request.form['login'])
-            session['msg'] = '200'
-            return redirect(url_for('handler'))
-        else:
-            flash("Ошибка во время регистрации", category="error")
-        return render_template("authorization.html")
-    else:
-        if check_password_hash(db.returnHsh(request.form["login"]), request.form["password"]):
-            session['msg'] = 'input'
-            session['userID'] = db.getUserId(request.form['login'])
-            return redirect(url_for('handler'))
-        else:
-            flash("Неверный пароль", category="error")
+    if request.method != 'GET':
+        if len(request.form['login']) < 6 and len(request.form['password']) < 6:
+            flash("Неверно введены данные", category="error")
             return render_template("authorization.html")
+
+        if not db.checkin(request.form['login']):
+            psw = generate_password_hash(request.form["password"])
+            code = db.newUser(psw, request.form["login"])
+            if code == 200:
+                session['userID'] = db.getUserId(request.form['login'])
+                user = UserInfo(session['userID'][1], db)
+                login_user(user)
+                flash("Вы успешно зарегистрировались", category="success")
+                return redirect(url_for('handler'))
+            else:
+                flash("Ошибка во время регистрации", category="error")
+            return render_template("authorization.html")
+        else:
+            if check_password_hash(db.returnHsh(request.form["login"]), request.form["password"]):
+                session['userID'] = db.getUserId(request.form['login'])
+                user = UserInfo(session['userID'][1], db)
+                login_user(user)
+                flash("Вы вошли в учетную запись", category="success")
+                return redirect(url_for('handler'))
+            else:
+                flash("Неверный пароль", category="error")
+                return render_template("authorization.html")
+    return render_template("authorization.html")
 
 
 if __name__ == "__main__":
