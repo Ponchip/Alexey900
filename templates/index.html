@@ -4,7 +4,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>{{title}}</title>
-        <link href="../static/css/style_index.css" rel="stylesheet" type="text/css">
+        {% if img -%}
+        <link href="../static/css/style_index2.css" rel="stylesheet" type="text/css">
+        {%else -%}
+        <link href="../static/css/style_index.css" rel="stylesheet" type="text/css">    
+        {% endif -%}
     </head>
 
     <body>
@@ -33,7 +37,7 @@
                                 </ul>
                                 </div>
                             </div>
-                                <div class="link_prof"><a href="/profile"><img class="i" src="./static/images/default.png" alt="упс картинки нет"></a>
+                                <div class="link_prof"><a href="/profile"><img class="i" src="./static/images/default{{img}}.png" alt="упс картинки нет"></a>
                                 <p clas="userName">Пользователь <b>{{UserName}}</b></p></div>
                         </div>
                         <main class="content">

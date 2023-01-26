@@ -46,8 +46,8 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 
 body{
 	background: #F9F0DA;
-	/* background-image: url('../images/back.jpg');
-	background-size: 100% 115%; */
+	background-image: url('../images/back.jpg');
+	background-size: 100% 115%;
 }
 
 .container{

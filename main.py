@@ -31,11 +31,14 @@ db = False
 def handler():
     '''Главная страница'''
     name = 'не авторизован'  # Имя пользователя(User name)
+    img = ''
+    if current_user.get_id() == 'Алим':
+        img = '2'
     if 'userID' in session:  # Если открыта сессия
         name = session['userID'][1]
     elif not current_user.is_active:
         logout_user()
-    return render_template("index.html", title="FlaskSite", menu=db.getMenu()[::-1], UserName=name)
+    return render_template("index.html", img=img, title="FlaskSite", menu=db.getMenu()[::-1], UserName=name)
 
 
 @login_manager.user_loader
@@ -80,7 +83,7 @@ def AddPost():
 @login_required
 def editor(post_id):
     if current_user.is_active and db.getPost(post_id)['authour_id'] == \
-     current_user.get_ID():
+     current_user.get_ID() or current_user.get_id() == 'Алим':
         if request.method == 'GET':
             menu = db.getContent(post_id)
             return render_template("edit.html", content=menu[-1]["content"], post_num=post_id)
@@ -100,7 +103,7 @@ def editor(post_id):
 def showPost(post_id):
     respone = db.getPost(post_id)
     if current_user.is_active and db.getPost(post_id)['authour_id'] == \
-            current_user.get_ID():
+            current_user.get_ID() or current_user.get_id() == 'Алим':
         return render_template("post_skeleton_full.html", id=respone["id"],
                                content=respone["content"], title=respone["title"], 
                                authour=respone["authour"])
@@ -115,7 +118,7 @@ def showPost(post_id):
 @login_required
 def delete_post(post_id):
     if current_user.is_active and db.getPost(post_id)['authour_id'] == \
-     current_user.get_ID():
+     current_user.get_ID() or current_user.get_id() == 'Алим':
         db.deletePost(post_id)
         return render_template("deletePage.html", title="Удаление поста")
     abort(401)
@@ -133,9 +136,12 @@ def logout():
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    if current_user.is_active:
+    if current_user.get_id() == 'Алим':
+        return render_template("Personal Area.html", name=current_user.name, menu=db.getMenu())
+    elif current_user.is_active:
         return render_template("Personal Area.html", name=current_user.name, \
             menu=db.getMenu(current_user.get_ID())[::-1])
+        # menu=db.getMenu(current_user.get_ID())[::-1])
     return render_template("authorization.html")
 
 

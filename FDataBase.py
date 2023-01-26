@@ -47,7 +47,7 @@ class FDataBase:
 
     def getMenu(self, authour_id=None):
         try:
-            if authour_id:
+            if authour_id or authour_id == 3:
                 self.__cur.execute(f"SELECT * FROM posts WHERE authour_id = {authour_id}")
             else:
                 self.__cur.execute(f"SELECT * FROM posts")
