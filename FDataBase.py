@@ -73,7 +73,7 @@ class FDataBase:
         self.__db.commit()
         return 200
 
-    def addContent(self, content):
+    def addContent(self, content, author_id):
         try:
             text = content["content"].replace("\n", "<br>")
             text = text.replace("'", "0b100111").replace('"', "0b100010")
@@ -84,7 +84,7 @@ class FDataBase:
             self.__cur.executescript(f"""
                 INSERT INTO posts VALUES(
                 NULL, "{content['authour']}",
-                "{title}", "{text}")""")
+                "{title}", "{text}", "{author_id}")""")
             return 200
         except BaseException as error:
             print("catched error", error)

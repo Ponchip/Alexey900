@@ -68,8 +68,9 @@ def handle_bad_request(e):
 @app.route("/add_post", methods=["GET", "POST"])
 @login_required
 def AddPost():
+    print(url_for('handler'))
     if request.method == "POST":
-        if db.addContent(request.form, current_user.get_id()) == 200:
+        if db.addContent(request.form) == 200:
             flash("Пост опубликован", category="success")
         else:
             flash("Ошибка", category="error")
@@ -96,11 +97,7 @@ def editor(post_id):
 @app.route("/<int:post_id>")
 def showPost(post_id):
     respone = db.getPost(post_id)
-    if current_user.is_active and db.getPost(post_id)['authour_id'] == \
-            current_user.get_id():
-        return render_template("post_skeleton_full.html", id=respone["id"],
-                               content=respone["content"], title=respone["title"], 
-                               authour=respone["authour"])
+    print(post_id, respone)
     if not respone:
         abort(404)
     return render_template("post_skeleton.html", id=respone["id"],
@@ -126,7 +123,7 @@ def logout():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if current_user.is_active:
-        return render_template("Personal Area.html", name=current_user.name, menu=db.getMenu()[::-1])
+        return render_template("Personal Area.html", name=current_user.name)
     return render_template("authorization.html")
 
 
@@ -134,7 +131,7 @@ def profile():
 def reg():
     session.permanent = True
     if request.method != 'GET':
-        if len(request.form['login']) < 5 and len(request.form['password']) < 8:
+        if len(request.form['login']) > 7 and len(request.form['password']) > 7:
             flash("Неверно введены данные", category="error")
             return render_template("authorization.html")
 
