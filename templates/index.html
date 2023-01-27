@@ -41,13 +41,11 @@
                                 <p clas="userName">Пользователь <b>{{UserName}}</b></p></div>
                         </div>
                         <main class="content">
+                            <h2>Статьи</h2>
                             {% for elem in menu%}
                             <div class="post">
                                 <a class="a_post" href="{{elem['id']}}">
                                 {{elem["title"].replace("0b100111", "'").replace("0b100010", '"')}}</a>
-                                <!-- <td class="picture">
-                                    <img width="110px"  class="round" src="../static/images/default.png">
-                                </td> -->
                                 <p class="content1">
                                 {% autoescape false%}
                                 {{elem["content"][:50].replace("0b100111", "'").replace("0b100010", '"')}}...   

@@ -1,36 +1,168 @@
-.autorization {
-    text-align: center;
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@Alexey900 
+Ponchip
+/
+Alexey900
+Public
+forked from Alexey900/Alexey900
+Fork your own copy of Ponchip/Alexey900
+Code
+Pull requests
+Actions
+Projects
+Security
+Insights
+Alexey900/Alexey900-main1/static/css/style_autorization.css
+@Ponchip
+Ponchip new apdate
+Latest commit 19b52d3 18 hours ago
+ History
+ 1 contributor
+121 lines (108 sloc)  2.31 KB
+
+/*Ξανσλενθε*/
+*{
+	padding: 0;
+    margin: 0;
+	border: 0;
 }
-.block {
-    margin-top: 10%;
-    text-align: center;
-    padding-top: 1%;
-    background-color: gainsboro;
+*,*:before,*:after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
-.c{
-    text-align: center;
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 14px;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
 }
-* {
-    margin-bottom: 0%;
-}
-input {
-    font-size: 20px;
-}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+/*--------------------*/
 .msgsuccess {
     border: 2px solid green;
     background: rgb(107, 222, 107);
+	padding: 1%;
+	margin-bottom: 1%;
     font-size: 26px;}
+
+
 .msgerror {
     border: 2px solid rgb(122, 43, 7);
     background: rgb(246, 63, 63);
-    font-size: 26px;
+    font-size: 24px;
+    text-align: center;
 }
 
-.subm {
-    margin-left: 1.8%;
-    margin-bottom: 1%;
-    font-size: 20px;
+body{
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    background: #F9F0DA;
 }
-.column1 {
-    margin-top: 2%;
+
+.wrapper{
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
 }
+
+.block{
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin-top: 1%
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.block input{
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.block button{
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #1c910f;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+.block button:hover,.form button:active,.form button:focus {
+    background: #165202;
+  }
+
+
+.login_name{
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #000;
+}
+.password_name{
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #000;
+}
+
+.button {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #000;
+}
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Alexey900/style_autorization.css at main · Ponchip/Alexey900

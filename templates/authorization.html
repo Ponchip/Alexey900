@@ -6,23 +6,17 @@
         <link href="../static/css/style_autorization.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        {% for cat, mes in get_flashed_messages(True) %}
-        <div class="msg{{cat}}">{{mes}}</div>
-        {% endfor %}
-        <div class="block">
-        <form action="/reqistration" method="post">
-            <table class="autorization" align="center" vertical-align="center">
-                <tr class="row1">
-                    <td class="column1"><b><p>Логин</p></b></td>
-                    <td class="column1"><input name="login" type="text" size='30'> </td>
-                </tr>
-                <tr>
-                    <td class="column2"><b><p>Пароль</p></b></td>
-                    <td class="column2"><input name="password" type="password" size='30'> </td>
-                </tr>
-        </table>
-        <input class="subm" type="submit" value="Войти/Регистрация">
-        </form>
+        <div class="wrapper">
+            {% for cat, mes in get_flashed_messages(True) %}
+            <div class="msg{{cat}}">{{mes}}</div>
+            {% endfor %}
+            <div class="block">
+                <form action="/reqistration" method="post">
+                <div class="login_block"><input class="login_name" name="login" type="text" placeholder="Логин"></div>
+                <div class="password_block"><input class="password_name" type="password" name="password" placeholder="Пароль"></div>
+                <div class="button_block"><button class="button" type="submit" name="button">Войти/Регистрация</button></div>
+            </form>
+            </div>
         </div>
     </body>
 </html>
