@@ -9,6 +9,7 @@ from datetime import timedelta
 from flask_login import LoginManager, login_user, login_required, \
     current_user, logout_user
 from User import UserInfo
+import re
 
 # CONFIGURATION
 DATABASE = "posts.db"
@@ -67,6 +68,27 @@ def establish_connection():
 def handle_bad_request(e):
     return '<h1>bad request!</h1>', 400
 
+
+@app.route('/search_post', methods=["POST"])
+def search():
+    menu = db.getMenu()
+    query = request.form['query']
+    results = []
+    search_d = [query.split()[:i] for i in range(len(query.split()), 1, -1)]
+    search_d += [[item] for item in query.split()]
+    for elem in menu:
+        for row in search_d:
+            if len(row) < 2: pattern = f'{"".join(row)}'
+            else: pattern = f'{" ".join(row)}'
+            if re.search(pattern, elem['title']):
+                indices = re.finditer(pattern, elem['title'])
+                title=[elem['title'][:ind.start()]+'<p class="marker">'+\
+                               elem['title'][ind.start():ind.end()]+'</p>'+\
+                               elem['title'][ind.end():] for ind in indices]
+
+                results.append([title, elem])
+                break
+    return render_template('search_res.html', menu=results)
 
 @app.route("/add_post", methods=["GET", "POST"])
 @login_required
