@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Add Post</title>
+        <link href="../static/css/style_addmenu.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="wrapper">
+            {% for cat, mes in get_flashed_messages(True) %}
+                <div class="messeg_block">
+                    <span class="msg{{cat}}">{{mes}}</span>
+                </div>
+            {% endfor %}
+            <div class="main_content">
+                <div class="sidebar_block">    
+                    <div class="sidebar">
+                        <div class="sidebar_block_content">
+                        <h2>Меню</h2>
+                        <ul>
+                            <li class="aaa"><a href="/">Главная</a></li>
+                            <li>
+                                <div class="link_prof"><a class="link_img" href="/profile"><img class="i" src="./static/images/default{{img}}.png" alt="упс картинки нет"><p clas="userName">Пользователь <b>{{UserName}}</b></p></a>
+                                </div>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                <div class="content">
+                    <div class="content_block">
+                        <h2 class="h2_stat">Публикация статьи</h2>
+                        <form action="/add_post" method="post">
+                            <div class="form_block">
+                                <div class="field_author_block">        
+                                    <input class="author_field" tabindex="1" autofocus required name="authour" type="text" placeholder="Имя автора статьи" maxlength="50" minlength="5">
+                                </div>
+                                <div class="field_title_block"> 
+                                    <textarea class="title_fild" tabindex="2"  required name="title" maxlength="100" minlength="20" placeholder="Заголовок"></textarea>
+                                </div>
+                                <div class="field_content_block">
+                                    <textarea class="content_fild" tabindex="3"  required name="content" placeholder="Содержание" minlength="300"></textarea>
+                                </div>
+                                    <span class="span_button"><button class="subm" type="submit">Загрузить</button></span>          
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

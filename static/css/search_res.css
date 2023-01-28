@@ -1,0 +1,13 @@
+.post {
+	display: block;
+	padding: 10px; 
+	border: 5px solid rgb(0, 0, 0);
+	margin-bottom: 10px;
+}
+
+.marker {
+    background-color: #e4e86e;
+    font-weight: bold;
+    padding: 2px;
+    display: inline;
+}

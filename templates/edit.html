@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Редактирование поста</title>
+        <meta charset="utf-8">
+        <link href="../static/css/editor.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <a href="/" class="return">Главная страница</a>
+        {% for cat, mes in get_flashed_messages(True) %}
+        <div class="msg{{cat}}">{{mes}}</div>
+        {% endfor %}
+        <p class="text">Введите правки в текст, а затем нажмите на кнопку "Сохранить правки"</p>
+        <form action="/edit_post{{post_num}}" method="post">
+            <textarea class="text" name="new_content" cols="67" rows="15">{{content.replace("0b100111", "'").replace("0b100010", '"').replace("<br>", "\n")}}</textarea>
+            <br>
+            <input type="submit" value="Сохранить правки">
+        </form>
+    </body>
+</html>

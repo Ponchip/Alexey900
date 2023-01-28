@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Post №{{id}}</title>
+        <link href="../static/css/style_content.css" rel="stylesheet" type="text/css">
+    </head>
+    <body >
+        <div class="wrapper">
+            <div class="main_content">
+                <div class="sidebar_block">    
+                    <div class="sidebar">
+                        <div class="sidebar_block_content">
+                        <h2>Меню</h2>
+                        <ul>
+                            <li class="aaa"><a href="/">Главная</a></li>
+                            <li>
+                                <div class="link_prof"><a class="link_img" href="/profile"><img class="i" src="./static/images/default{{img}}.png" alt="упс картинки нет"><p clas="userName">Пользователь <b>{{UserName}}</b></p></a>
+                                </div>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    <div class="button_block">
+                        <form action="delete_post{{id}}" method="GET">
+                            <button class="button_del" type="submit">Удалить</button>
+                        </form>
+                        <form action="edit_post{{id}}" method="GET">
+                            <button class="button_edit" type="submit">Редактировать</button>
+                        </form>
+                    </div>
+                <div class="content">
+                    <header class="header">
+                        <div class="author_block">
+                            <a class="link_ico_profile" title="Автор статьи" href="/profile"><img class="ico_profile" src="../static/images/default{{img}}.png" alt=""><span title="Автор статьи" >{{authour}}</span></a><br>
+                        </div>
+                        <div class="title_block">
+                            {{title.replace("0b100111", "'").replace("0b100010", '"')}}
+                        </div>
+                    </header>
+                    <div class="aticle_content_block">
+                         {% autoescape False %}
+                        <p class="article_content">
+                            {{content.replace("0b100111", "'").replace("0b100010", '"')}}
+                        </p>
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+        <!--
+        <div class="buttons">
+        <form class='line' action="delete_post{{id}}" method="GET">
+            <input class="del" type="submit" value="Удалить">
+        </form>
+        <form class="line" action="edit_post{{id}}" method="GET">
+            <input class="edit" type="submit" value="Редактировать">
+        </form>
+        </div>-->

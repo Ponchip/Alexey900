@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Post №{{id}}</title>
+        <link href="../static/css/style_content.css" rel="stylesheet" type="text/css">
+    </head>
+    <body >
+        <a href="/" class="return">Вернуться на главную</a>
+        <p class="title">Автор {{authour}}<br>
+            {{title.replace("0b100111", "'").replace("0b100010", '"')}}</p>
+        <hr>
+        <div class="content">
+            {% autoescape False %}
+            
+            <p class="text">
+                {{content.replace("0b100111", "'").replace("0b100010", '"')}}
+            </p>
+            {% endautoescape %}
+        </div>
+    </body>
+</html>
