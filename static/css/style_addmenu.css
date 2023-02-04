@@ -80,7 +80,8 @@ h2{
     text-align: center;
 }
 .i{
-    width: 70px;
+    width: 100px;
+	height: 100px;
     border-radius: 50%;
 }
 
@@ -88,7 +89,7 @@ h2{
 }
 
 .sidebar {
-    height: 284px;
+    height: 10%;
     box-shadow: 3px 2px 1px #000;
 	background: #fff;
 	float: left;

@@ -6,15 +6,45 @@
         <link href="../static/css/editor.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <a href="/" class="return">Главная страница</a>
-        {% for cat, mes in get_flashed_messages(True) %}
-        <div class="msg{{cat}}">{{mes}}</div>
-        {% endfor %}
+        <div class="wrapper">
+            {% for cat, mes in get_flashed_messages(True) %}
+                <div class="messeg_block">
+                    <span class="msg{{cat}}">{{mes}}</span>
+                </div>
+            {% endfor %}
+            <div class="main_content">
+                <div class="sidebar_block">    
+                    <div class="sidebar">
+                        <div class="sidebar_block_content">
+                        <h2>Меню</h2>
+                        <ul>
+                            <li class="aaa"><a href="/">Главная</a></li>
+                            <li><a href="/add_post">Добавить статью</a></li>
+                            <li>
+                                <div class="link_prof"><a class="link_img" href="/profile"><img class="i" src="./static/images/default{{img}}.png" alt="упс картинки нет"><p clas="userName">Пользователь <b>{{UserName}}</b></p></a>
+                                </div>
+                            </li>
+                        </ul>
+                        </div>
+                </div>
+                <div class="content">
+                    <div class="content_block">
+                        <h2 class="h2_stat">Редактирование статьи</h2>
+                        <form action="/edit_post{{post_num}}" method="post">
+                            <textarea class="article_content" name="new_content">{{content.replace("0b100111", "'").replace("0b100010", '"').replace("<br>", "\n")}}</textarea>
+                            <button class="button_edit" type="submit">Сохранить правки</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+        <!-- 
         <p class="text">Введите правки в текст, а затем нажмите на кнопку "Сохранить правки"</p>
         <form action="/edit_post{{post_num}}" method="post">
             <textarea class="text" name="new_content" cols="67" rows="15">{{content.replace("0b100111", "'").replace("0b100010", '"').replace("<br>", "\n")}}</textarea>
             <br>
             <input type="submit" value="Сохранить правки">
-        </form>
-    </body>
-</html>
+        </form>-->

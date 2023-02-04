@@ -1,26 +1,111 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>{{title}}</title>
+        {% if img -%}
+        <link href="../static/css/style_index.css" rel="stylesheet" type="text/css">
+        {%else -%}
+        <link href="../static/css/style_index.css" rel="stylesheet" type="text/css">    
+        {% endif -%}
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="middle">
+                {% for cat, mes in get_flashed_messages(True) %}
+                <div class="msg{{cat}}">{{mes}}</div>
+                {% endfor %}
+                    <div class="container">
+                        <div class="sidebar_block">    
+                            <div class="sidebar">
+                                <div class="sidebar_block_content">
+                                <h2>Меню</h2>
+                                <ul>
+                                    <li><a  href="/">Назад</a></li>
+                                    <li><a  href="/logout">Выйти из акканута</a></li>
+                                    
+                                </ul>
+                                </div>
+                            </div>
+                                <div class="link_prof"><a href="/profile"><img class="i" src="{{url_for('userAva', showIm=False)}}" alt="упс картинки нет"></a>
+                                <p clas="userName">Пользователь <b>{{name}}</b></p></div>
+                        </div>
+                        <main class="content">
+                            <h2 class="h2_stat">Мои статьи</h2>
+                            {% for elem in menu%}
+                            <div class="post">
+                                <a class="a_post" href="{{elem['id']}}">
+                                {{elem["title"].replace("0b100111", "'").replace("0b100010", '"')}}</a>
+                                <p class="content1">
+                                {% autoescape false%}
+                                {{elem["content"][:50].replace("0b100111", "'").replace("0b100010", '"')}}...   
+                                {% endautoescape %}
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </main>
+                    </div>
+            </div>
+            <div class="block_footer">
+                <footer class="footer">&copy Все права защищены</footer>
+            </div>
+        </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+    <head>
         <meta charset="utf-8">
         <link href="../static/css/Personal Area.css" rel="stylesheet" type="text/css">
     </head>
     <body >
-        <a href="/">Назад</a><br><br>
-        <img class="i" src="./static/images/default.png" alt="упс картинки нет"><br>
-		{{name}}
-		<hr>
-		<a href='/logout'>Выйти из акканута</a><br>
-        <p>Мои статьи</p>
-        {% for elem in menu%}
+        <div class="wrapper">
+            <div class="header">
+
+            </div>
+            {% for elem in menu%}
             <div class="post">
-                <a class="a_post" href="{{elem['id']}}">
-                {{elem["title"].replace("0b100111", "'").replace("0b100010", '"')}}</a>
+                <a class="a_post" href="{{elem['id']}}">{{elem["title"].replace("0b100111", "'").replace("0b100010", '"')}}</a>
                 <p class="content1">
                 {% autoescape false%}
                 {{elem["content"][:50].replace("0b100111", "'").replace("0b100010", '"')}}...   
                 {% endautoescape %}
                 </p>
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </body>
-</html>
+</html> 
+ -->

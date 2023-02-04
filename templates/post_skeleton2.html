@@ -21,18 +21,11 @@
                         </ul>
                         </div>
                     </div>
-                    <div class="button_block">
-                        <form action="delete_post{{id}}" method="GET">
-                            <button class="button_del" type="submit">Удалить</button>
-                        </form>
-                        <form action="edit_post{{id}}" method="GET">
-                            <button class="button_edit" type="submit">Редактировать</button>
-                        </form>
                     </div>
                 <div class="content">
                     <header class="header">
                         <div class="author_block">
-                            <img class="i2" src="{{ url_for('userAva', showIm=shI) }}" alt="упс картинки нет"><span title="Автор статьи" > {{authour}}</span><br>
+                           <img class="i2" src="{{url_for('userAva',  showIm=shI)}}" alt="упс картинки нет"> <span title="Автор статьи" > {{authour}}</span><br>
                         </div>
                     </header>
                     <div class="title_block">
@@ -45,7 +38,7 @@
                         </p>
                         {% endautoescape %}
                     </div>
-                    <p class='inf'>Просмотры</p>
+                    <p class="inf">Просмотры</p>
                     <div class="con"> 
                         <p class="views">{{views}}</p>
                         <img class='icon' src="static\images\icon\глаз.png">
